@@ -1,5 +1,4 @@
-# 851725266652.dkr.ecr.ap-south-1.amazonaws.com/flask-app:v1
-name: day4 Build-Push
+name: Day4 Build-Push
 
 on:
   push:
@@ -10,27 +9,30 @@ on:
       - '.github/workflows/build-push-day3.yml'
   workflow_dispatch:
 
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3  # Instead of v2
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Updated to latest version
+
+    - name: Verify Repository Structure
+      run: ls -R  # Debugging step to check file paths
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Replace with your AWS region
+        aws-region: us-east-1  
 
     - name: Login to Amazon ECR
-      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725266652.dkr.ecr.us-east-1.amazonaws.com
+      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725266652.dkr.ecr.us-east-1.amazonaws.com 
+
     - name: Build, Tag, and Push Docker Image
       run: |
-        cd Day3/src
-        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask-app:day4 .
-        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask-app:day4
+        cd Day3/src || { echo "Directory not found!"; exit 1; }  # Prevents silent failures
+        ls -la  # Debugging step to check if Dockerfile is present
+        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask:day4 . 
+        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask:day4
