@@ -1,0 +1,34 @@
+# 851725266652.dkr.ecr.ap-south-1.amazonaws.com/flask-app:v1
+name: day4 Build-Push
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'day3/**' 
+  #     - '.github/workflows/build-push-day3.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1  # Replace with your AWS region
+
+    - name: Login to Amazon ECR
+      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725266652.dkr.ecr.us-east-1.amazonaws.com
+    - name: Build, Tag, and Push Docker Image
+      run: |
+        cd day3/src
+        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask-app:day4 .
+        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask-app:day4
