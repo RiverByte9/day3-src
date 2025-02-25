@@ -2,13 +2,15 @@
 name: day4 Build-Push
 
 on:
-    push:
+  push:
     branches:
-     - main
+      - main
     paths:
-       - 'Day3/**' 
-       - '.github/workflows/build-push-day3.yml'
-    workflow_dispatch:
+      - 'Day3/**' 
+      - '.github/workflows/build-push-day3.yml'
+  workflow_dispatch:
+
+
 
 jobs:
   build:
