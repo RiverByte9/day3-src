@@ -34,5 +34,5 @@ jobs:
       run: |
         cd Day3/src || { echo "Directory not found!"; exit 1; }  # Prevents silent failures
         ls -la  # Debugging step to check if Dockerfile is present
-        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask:day4 . 
-        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/flask:day4
+        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4 . 
+        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4
