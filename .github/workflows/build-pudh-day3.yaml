@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Day3/**' 
+      - 'Day3/**'   
       - '.github/workflows/build-push-day3.yml'
   workflow_dispatch:
 
