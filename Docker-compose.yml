@@ -1,0 +1,45 @@
+
+services:
+  app:
+    build: . 
+    ports:
+      - "8000:8000"
+    networks:
+      - test_network 
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=8000
+    command: flask run --host=0.0.0.0 --port=8000
+    working_dir: /app
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - test_network
+    healthcheck:      
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres -t 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres_data:
+
+networks:
+  test_network:
