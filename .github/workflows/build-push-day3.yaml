@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'Day3/**'   
-      - '.github/workflows/build-push-day3.yml'
+      - 'Day3/**' 
+      - '.github/workflows/build-push-day3.yaml'
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3  # Updated to latest version
+      uses: actions/checkout@v3  # Fetches the latest code
 
     - name: Verify Repository Structure
       run: ls -R  # Debugging step to check file paths
@@ -28,11 +28,11 @@ jobs:
         aws-region: us-east-1  
 
     - name: Login to Amazon ECR
-      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725266652.dkr.ecr.us-east-1.amazonaws.com 
+      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725266652.dkr.ecr.us-east-1.amazonaws.com  
 
     - name: Build, Tag, and Push Docker Image
       run: |
         cd Day3/src || { echo "Directory not found!"; exit 1; }  # Prevents silent failures
         ls -la  # Debugging step to check if Dockerfile is present
-        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4 . 
-        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4
+        docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4 .  
+        docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4  
