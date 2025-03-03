@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Day3/**' 
+      - 'day3-src/**' 
       - '.github/workflows/build-push-day3.yaml'
   workflow_dispatch:
 
@@ -32,7 +32,7 @@ jobs:
 
     - name: Build, Tag, and Push Docker Image
       run: |
-        cd Day3/src || { echo "Directory not found!"; exit 1; }  # Prevents silent failures
+        cd day3-src || { echo "Directory not found!"; exit 1; }  # Prevents silent failures
         ls -la  # Debugging step to check if Dockerfile is present
         docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4 .  
         docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4  
