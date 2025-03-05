@@ -36,3 +36,5 @@ jobs:
         ls -la  # Debugging step to check if Dockerfile is present
         docker build -t 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4 .  
         docker push 851725266652.dkr.ecr.us-east-1.amazonaws.com/python-flask:day4  
+
+
