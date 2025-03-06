@@ -3,7 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 app = Flask(__name__)
 # Corrected database URI for Docker Compose
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pass123@db:5432/postgres'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pass123@db:5432/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@flask-db.c5cmsom8oxbd.ap-south-1.rds.amazonaws.com:5432/mydb'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize SQLAlchemy with app context
 db = SQLAlchemy()

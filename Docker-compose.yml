@@ -17,8 +17,8 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "pass123"
-      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: "admin123"
+      POSTGRES_DB: mydb
     ports:
       - "5432:5432"
     restart: always
